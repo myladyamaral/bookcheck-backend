@@ -31,8 +31,8 @@ public class SpringSecurityConfig {
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(jwtConfigProperties.getOpenUrls().toArray(new String[0])).permitAll()
                             .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                            .requestMatchers("/leitor/**").hasAuthority("LEITOR")
-                            .requestMatchers("/sebo/**").hasAuthority("SEBO")
+                            .requestMatchers("/leitor/**").hasRole("LEITOR")
+                            .requestMatchers("/sebo/**").hasRole("SEBO")
                             .anyRequest().authenticated()
                     )
                     .sessionManagement(session -> session

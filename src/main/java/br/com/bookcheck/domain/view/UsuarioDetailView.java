@@ -45,7 +45,7 @@ public class UsuarioDetailView implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(
-                new SimpleGrantedAuthority(tipoUsuario.name())
+                new SimpleGrantedAuthority("ROLE_" +tipoUsuario.name())
         );
     }
 

@@ -11,8 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 public class CatalogoResponseDto {
     private Long id;
-    private Long seboId;
-    private Long livroId;
+    private UsuarioSeboResponseDto sebo;
+    private LivroResponseDto livro;
     private EstadoConservacaoEnum estadoConservacao;
     private Double preco;
     private Integer quantidade;

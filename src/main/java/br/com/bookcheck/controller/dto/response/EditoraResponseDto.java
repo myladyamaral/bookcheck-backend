@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class EditoraResponseDto {
     private Long id;
-    private String nomeFantasia;
+    private String nome;
     private String cnpj;
 }
 

@@ -90,6 +90,24 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                if (requestURI.startsWith("/api/sebo/")) {
+                    boolean isSebo = userDetails.getAuthorities().stream()
+                            .anyMatch(auth -> auth.getAuthority().equals("ROLE_SEBO"));
+                    if (!isSebo) {
+                        errorResponse(request, response,
+                                new UnauthorizedException("Acesso permitido apenas para Sebos"));
+                        return;
+                    }
+                }
+                if (requestURI.startsWith("/api/leitor/")) {
+                    boolean isSebo = userDetails.getAuthorities().stream()
+                            .anyMatch(auth -> auth.getAuthority().equals("ROLE_LEITOR"));
+                    if (!isSebo) {
+                        errorResponse(request, response,
+                                new UnauthorizedException("Acesso permitido apenas para leitores"));
+                        return;
+                    }
+                }
             } else {
                 errorResponse(request, response, new UnauthorizedException("Token inválido ou expirado"));
                 return;

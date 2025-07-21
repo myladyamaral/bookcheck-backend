@@ -12,6 +12,7 @@ import br.com.bookcheck.domain.entity.UsuarioSebo;
 import br.com.bookcheck.domain.enums.TipoUsuarioEnum;
 import br.com.bookcheck.domain.repository.EnderecoRepository;
 import br.com.bookcheck.domain.repository.UsuarioRepository;
+import br.com.bookcheck.exception.ServiceBusinessException;
 import br.com.bookcheck.mapper.EnderecoMapper;
 import br.com.bookcheck.mapper.UsuarioMapper;
 import jakarta.transaction.Transactional;
@@ -52,7 +53,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioLeitorResponseDto getLeitorById(Long id) {
         UsuarioLeitor leitor = (UsuarioLeitor) usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Leitor não encontrado"));
+                .orElseThrow(() -> new ServiceBusinessException("Leitor não encontrado"));
         return usuarioMapper.toResponseDto(leitor);
     }
 
@@ -80,7 +81,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioSeboResponseDto getSeboById(Long id) {
         UsuarioSebo sebo = (UsuarioSebo) usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Sebo não encontrado"));
+                .orElseThrow(() -> new ServiceBusinessException("Sebo não encontrado"));
         return usuarioMapper.toResponseDto(sebo);
     }
 
