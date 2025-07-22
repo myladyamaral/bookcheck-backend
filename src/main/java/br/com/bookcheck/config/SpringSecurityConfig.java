@@ -30,7 +30,7 @@ public class SpringSecurityConfig {
             http.csrf(AbstractHttpConfigurer::disable)
                     .authorizeHttpRequests(auth -> auth
                             .requestMatchers(jwtConfigProperties.getOpenUrls().toArray(new String[0])).permitAll()
-                            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
                             .requestMatchers("/leitor/**").hasRole("LEITOR")
                             .requestMatchers("/sebo/**").hasRole("SEBO")
                             .anyRequest().authenticated()

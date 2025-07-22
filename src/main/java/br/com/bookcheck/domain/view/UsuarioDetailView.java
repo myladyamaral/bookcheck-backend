@@ -1,6 +1,6 @@
 package br.com.bookcheck.domain.view;
 
-import br.com.bookcheck.domain.entity.Endereco;
+import br.com.bookcheck.domain.entity.Usuario.Endereco;
 import br.com.bookcheck.domain.enums.TipoUsuarioEnum;
 import br.com.bookcheck.domain.enums.converter.TipoUsuarioConverter;
 import jakarta.persistence.*;
@@ -10,11 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter

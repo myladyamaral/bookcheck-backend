@@ -43,7 +43,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         log.info("Processing request for URI: {}", requestURI);
 
-        if (requestURI.startsWith("/swagger-ui/") || requestURI.equals("/v3/api-docs") || requestURI.startsWith("/v3/api-docs/")) {
+        if (requestURI.startsWith("/swagger-ui") || requestURI.startsWith("/swagger-ui/") || requestURI.equals("/v3/api-docs") || requestURI.startsWith("/v3/api-docs/")) {
             log.info("Skipping JWT validation for Swagger/UI/OpenAPI route: {}", requestURI);
             chain.doFilter(request, response);
             return;
@@ -90,7 +90,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-                if (requestURI.startsWith("/api/sebo/")) {
+                if (requestURI.contains("/sebo")) {
                     boolean isSebo = userDetails.getAuthorities().stream()
                             .anyMatch(auth -> auth.getAuthority().equals("ROLE_SEBO"));
                     if (!isSebo) {
@@ -99,7 +99,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                         return;
                     }
                 }
-                if (requestURI.startsWith("/api/leitor/")) {
+                if (requestURI.contains("/leitor")) {
                     boolean isSebo = userDetails.getAuthorities().stream()
                             .anyMatch(auth -> auth.getAuthority().equals("ROLE_LEITOR"));
                     if (!isSebo) {
