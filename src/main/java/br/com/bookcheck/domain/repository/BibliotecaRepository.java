@@ -1,7 +1,7 @@
 package br.com.bookcheck.domain.repository;
 
 import br.com.bookcheck.domain.entity.Leitor.Biblioteca;
-import br.com.bookcheck.domain.entity.Usuario;
+import br.com.bookcheck.domain.entity.Usuario.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
 package br.com.bookcheck.domain.entity.Sebo;
 
 import br.com.bookcheck.domain.entity.Livro.Livro;
-import br.com.bookcheck.domain.entity.UsuarioSebo;
+import br.com.bookcheck.domain.entity.Usuario.UsuarioSebo;
 import br.com.bookcheck.domain.enums.DisponibilidadeCatalogoEnum;
 import br.com.bookcheck.domain.enums.EstadoConservacaoEnum;
 import br.com.bookcheck.domain.enums.converter.DisponibilidadeCatalogoConverter;

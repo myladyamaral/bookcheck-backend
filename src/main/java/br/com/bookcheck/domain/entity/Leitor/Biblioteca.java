@@ -1,7 +1,7 @@
 package br.com.bookcheck.domain.entity.Leitor;
 
 import br.com.bookcheck.domain.entity.Livro.Livro;
-import br.com.bookcheck.domain.entity.UsuarioLeitor;
+import br.com.bookcheck.domain.entity.Usuario.UsuarioLeitor;
 import br.com.bookcheck.domain.enums.EstadoConservacaoEnum;
 import br.com.bookcheck.domain.enums.StatusLeituraEnum;
 import br.com.bookcheck.domain.enums.converter.EstadoConservacaoConverter;

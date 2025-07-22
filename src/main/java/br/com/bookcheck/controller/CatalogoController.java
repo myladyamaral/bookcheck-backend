@@ -1,8 +1,8 @@
 package br.com.bookcheck.controller;
 
-import br.com.bookcheck.controller.dto.request.CatalogoRequestDto;
-import br.com.bookcheck.controller.dto.response.CatalogoResponseDto;
-import br.com.bookcheck.service.CatalogoService;
+import br.com.bookcheck.controller.dto.request.Sebo.CatalogoRequestDto;
+import br.com.bookcheck.controller.dto.response.Sebo.CatalogoResponseDto;
+import br.com.bookcheck.service.Sebo.CatalogoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,36 +15,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("api")
+@RequestMapping("api/catalogo")
 @RequiredArgsConstructor
 public class CatalogoController {
 
     private final CatalogoService catalogoService;
 
-    @PostMapping("/sebo/catalogo")
-    public ResponseEntity<CatalogoResponseDto> createCatalogo(
+
+    @PostMapping("/sebo")
+    public ResponseEntity<CatalogoResponseDto> addLivroCatalogo(
             @RequestBody @Valid CatalogoRequestDto request) {
         CatalogoResponseDto response = catalogoService.createCatalogo(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    @GetMapping("/catalogo/all/{seboId}")
-    public ResponseEntity<Page<CatalogoResponseDto>> getAllCatalogosBySeboId(@PathVariable Long seboId, Pageable pageable) {
-        return ResponseEntity.ok(catalogoService.getAllCatalogosPage(seboId, pageable));
+    @GetMapping("/all/{seboId}")
+    public ResponseEntity<Page<CatalogoResponseDto>> getLivrosCatalogoBySeboId(@PathVariable Long seboId, Pageable pageable) {
+        return ResponseEntity.ok(catalogoService.getAllCatalogos(seboId, pageable));
     }
 
-    @GetMapping("/catalogo/{id}")
-    public ResponseEntity<CatalogoResponseDto> getCatalogoById(@PathVariable Long id, Pageable pageable) {
+    @GetMapping("/{id}")
+    public ResponseEntity<CatalogoResponseDto> getLivroCatalogoById(@PathVariable Long id, Pageable pageable) {
         return ResponseEntity.ok(catalogoService.getCatalogoById(id));
     }
 
-    @GetMapping("/catalogo/list/{id}")
-    public ResponseEntity<List<CatalogoResponseDto>> getAllCatalogos(@PathVariable Long id) {
-        return ResponseEntity.ok(catalogoService.getAllCatalogos(id));
+    @GetMapping("/list/{seboId}")
+    public ResponseEntity<List<CatalogoResponseDto>> getLivrosCatalogoBySeboId(@PathVariable Long seboId) {
+        return ResponseEntity.ok(catalogoService.getAllCatalogos(seboId));
     }
 
-    @DeleteMapping("/sebo/catalogo/{id}")
-    public ResponseEntity<Void> deleteUsuario(@PathVariable Long id) {
+
+    @DeleteMapping("/sebo/{id}")
+    public ResponseEntity<Void> deleteLivroCatalogo(@PathVariable Long id) {
         catalogoService.deleteCatalogo(id);
         return ResponseEntity.noContent().build();
     }

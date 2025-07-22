@@ -3,7 +3,7 @@ package br.com.bookcheck.controller;
 
 import br.com.bookcheck.controller.dto.request.AuthenticationRequestDto;
 import br.com.bookcheck.controller.dto.response.AuthenticationResponseDto;
-import br.com.bookcheck.service.UsuarioSecurityService;
+import br.com.bookcheck.service.Usuario.UsuarioSecurityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

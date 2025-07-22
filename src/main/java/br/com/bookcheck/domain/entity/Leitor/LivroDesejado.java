@@ -1,7 +1,7 @@
 package br.com.bookcheck.domain.entity.Leitor;
 
 import br.com.bookcheck.domain.entity.Livro.Livro;
-import br.com.bookcheck.domain.entity.UsuarioLeitor;
+import br.com.bookcheck.domain.entity.Usuario.UsuarioLeitor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

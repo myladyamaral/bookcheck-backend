@@ -1,7 +1,7 @@
 package br.com.bookcheck.domain.repository;
 
 import br.com.bookcheck.domain.entity.Sebo.Catalogo;
-import br.com.bookcheck.domain.entity.Usuario;
+import br.com.bookcheck.domain.entity.Usuario.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
