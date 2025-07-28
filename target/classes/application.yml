@@ -1,0 +1,98 @@
+server:
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  http2:
+    enabled: true
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:5432/${DB_NAME:bookcheck}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-test-query: SELECT 1
+      connectionTimeout: 30000
+      max-lifetime: 600000
+      maximum-pool-size: 20
+      minimum-idle: 5
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: ${DB_SCHEMA:bookcheck}
+        format_sql: true
+        show-sql: true
+        envers:
+          enable: true
+          autoRegisterListeners: true
+          storeDataAtDelete: true
+    database: postgresql
+
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  flyway:
+    schemas: ${DB_SCHEMA:bookcheck}
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    baseline-version: "0"
+    validate-on-migrate: false
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  springdoc:
+    swagger-ui:
+      path: /swagger-ui.html
+      enabled: true
+    api-docs:
+      enabled: true
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  allowedOrigins: "*"
+  link:
+    host: ${LINK_HOST:http://localhost:8080}
+    time-to-live-in-minutes: ${LINK_TIME_TO_LIVE_IN_MINUTES:30}
+
+security:
+  password:
+    cust-factor: ${SEC_CUST_FACTOR_PASSWORD:12}
+  jwt:
+    secret-key: ${SEC_SECRET_JWT_KEY:XSkvDYPC9E1c-dsVHWd6TPTYzwvzS25f56qttbsBAVTX6PgE4cY-dAS1lMH6fxIbRcK4p-4G12snvbGSv2G-ktjNswtte0SVgYB7RH8N1SyJSrX0qr-jcqPKKWEn2McJlU-0JyvNka0_vteRZkOLuC28r2eMqFuCtzpcGbfTC7GEr2GLyIKnB4O-lUj-ihhcqyG05VX2wG26G1bI4mdHdOUtfJeaGwPF3NhQqZWNOLBuMRkhjh4aaGFzjUro17VmpBagETbl-uCuYuNhIOeR2lV68_vlTs5SgmMB1QstX7oB6m_rf9cwuirbEGOGNfqShR9GeX8QUaHRsF_9CzitXrAWST3q5y9CCfJJj3foHsiIC-PppxWpM_QSdX7Gy0nmao05dK_qkMLXv7Hs8ClpmIVysRJqJfsZyYF5i2ch-BzCcX4Neg6EdxSQJz-QtLciWXoKa3h0rmGwqn1YLrpimOnSmswjCoGrPqfS43vD4eVKFpXaCC6CUWN_hnHBRkEHsJ8x5nVrX6wMHpJ1qYqX58ISisj17LHVLuEnFMc4oIzSzM8xMJsidVXSnWqFINt41NSK1uTcYN786acp_Lx63e-KQ5yyAA4SwaM1D_AVNf0z0F1GT4Tvw0UeD-mqcffQ8dn3IWtOFjwABKHTadwfPTe3AbA}
+    expiration-size: 3600000 # 60 minutes
+    open-urls:
+      - /api/auth/login
+      - /api/usuario/leitor
+      - /api/usuario/sebo
+
+logging:
+  level:
+    org:
+      flywaydb: DEBUG
+      springframework:
+        web: DEBUG
+        orm: DEBUG
+        jdbc: DEBUG
+        hibernate:
+          SQL: DEBUG
+          type: DEBUG
