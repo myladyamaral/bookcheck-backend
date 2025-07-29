@@ -2,6 +2,7 @@ package br.com.bookcheck.service.Leitor;
 
 
 import br.com.bookcheck.controller.dto.request.Leitor.BibliotecaRequestDto;
+import br.com.bookcheck.controller.dto.request.Leitor.BibliotecaUpdateRequestDto;
 import br.com.bookcheck.controller.dto.response.Leitor.BibliotecaResponseDto;
 import br.com.bookcheck.domain.entity.Leitor.Biblioteca;
 import br.com.bookcheck.domain.entity.Livro.Livro;
@@ -45,7 +46,7 @@ public class BibliotecaServiceImpl implements BibliotecaService {
     }
 
     @Override
-    public BibliotecaResponseDto updateBiblioteca(Long id,BibliotecaRequestDto request) {
+    public BibliotecaResponseDto updateBiblioteca(Long id, BibliotecaUpdateRequestDto request) {
         try{
             Biblioteca existingBiblioteca = bibliotecaRepository.findById(id)
                     .orElseThrow(() -> new ServiceBusinessException("Registro com ID " + id + " não encontrado."));

@@ -1,6 +1,7 @@
 package br.com.bookcheck.controller;
 
 import br.com.bookcheck.controller.dto.request.Leitor.BibliotecaRequestDto;
+import br.com.bookcheck.controller.dto.request.Leitor.BibliotecaUpdateRequestDto;
 import br.com.bookcheck.controller.dto.response.GenericSuccessResponseDto;
 import br.com.bookcheck.controller.dto.response.Leitor.BibliotecaResponseDto;
 import br.com.bookcheck.service.Leitor.BibliotecaService;
@@ -70,7 +71,7 @@ public class BibliotecaController {
             @Parameter(description = "ID do registro na biblioteca", required = true, example = "1")
             @PathVariable Long id,
             @Parameter(description = "Dados atualizados do livro", required = true)
-            @RequestBody @Valid BibliotecaRequestDto request) {
+            @RequestBody @Valid BibliotecaUpdateRequestDto request) {
         BibliotecaResponseDto response = bibliotecaService.updateBiblioteca(id, request);
         return ResponseEntity.ok(new GenericSuccessResponseDto<>("Registro da biblioteca atualizado com sucesso.", "biblioteca", response));
     }
