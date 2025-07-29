@@ -6,6 +6,9 @@ import br.com.bookcheck.domain.entity.Usuario.Publicacao;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface PublicacaoMapper {
@@ -16,6 +19,12 @@ public interface PublicacaoMapper {
     Publicacao toEntity(PublicacaoRequestDto dto);
 
     PublicacaoResponseDto toResponseDto(Publicacao entity);
+
+    List<PublicacaoResponseDto> toResponseDto(List<Publicacao> entities);
+
+    default Page<PublicacaoResponseDto> toResponseDto(Page<Publicacao> entities){
+        return entities.map(this::toResponseDto);
+    }
 
 
 }

@@ -6,6 +6,9 @@ import br.com.bookcheck.domain.entity.Usuario.Comentario;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ComentarioMapper {
@@ -16,6 +19,12 @@ public interface ComentarioMapper {
     Comentario toEntity(ComentarioRequestDto dto);
 
     ComentarioResponseDto toResponseDto(Comentario entity);
+
+    List<ComentarioResponseDto> toResponseDto(List<Comentario> entities);
+
+    default Page<ComentarioResponseDto> toResponseDto(Page<Comentario> entities){
+        return entities.map(this::toResponseDto);
+    }
 
 
 }
