@@ -6,7 +6,6 @@ import br.com.bookcheck.controller.dto.request.Leitor.BibliotecaUpdateRequestDto
 import br.com.bookcheck.controller.dto.response.Leitor.BibliotecaResponseDto;
 import br.com.bookcheck.domain.entity.Leitor.Biblioteca;
 import br.com.bookcheck.domain.entity.Livro.Livro;
-import br.com.bookcheck.domain.entity.Leitor.Biblioteca;
 import br.com.bookcheck.domain.repository.BibliotecaRepository;
 import br.com.bookcheck.domain.repository.LivroRepository;
 import br.com.bookcheck.exception.ServiceBusinessException;
