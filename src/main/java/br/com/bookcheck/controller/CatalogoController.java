@@ -2,6 +2,7 @@ package br.com.bookcheck.controller;
 
 import br.com.bookcheck.controller.dto.request.Sebo.CatalogoRequestDto;
 import br.com.bookcheck.controller.dto.response.Sebo.CatalogoResponseDto;
+import br.com.bookcheck.service.OpenLibraryService;
 import br.com.bookcheck.service.Sebo.CatalogoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -28,6 +29,7 @@ import java.util.List;
 public class CatalogoController {
 
     private final CatalogoService catalogoService;
+    private final OpenLibraryService  openLibraryService;
 
     /**
      * Endpoint para adicionar um novo livro ao catálogo de um sebo
@@ -128,4 +130,5 @@ public class CatalogoController {
         catalogoService.deleteCatalogo(id);
         return ResponseEntity.noContent().build();
     }
+
 }

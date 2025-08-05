@@ -15,9 +15,9 @@ import java.util.Optional;
 public interface PublicacaoRepository extends JpaRepository<Publicacao, Long>, JpaSpecificationExecutor<Usuario>{
 
     Optional<Publicacao> findById(Long id);
-    List<Publicacao> findByUsuarioId(Long usuarioId);
-    Page<Publicacao> findByUsuarioId(Long usuarioId, Pageable pageable);
-    List<Publicacao> findAllPublicacoes();
-    Page<Publicacao> findAllPublicacoes(Pageable pageable);
+
+    List<Publicacao> findByAutorId(Long autorId);
+    Page<Publicacao> findByAutorId(Long usuarioId, Pageable pageable);
+
 
 }

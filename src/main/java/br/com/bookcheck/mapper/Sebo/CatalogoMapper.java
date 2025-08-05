@@ -18,12 +18,11 @@ public interface CatalogoMapper {
     CatalogoMapper INSTANCE = Mappers.getMapper(CatalogoMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "livro.id", source = "livroId")
     @Mapping(target = "sebo.id", source = "seboId")
     Catalogo toEntity(CatalogoRequestDto dto);
 
-    @Mapping(target = "livro", source = "livro")
     @Mapping(target = "sebo", source = "sebo")
+    @Mapping(target = "isbn", source = "isbn")
     CatalogoResponseDto toResponseDto(Catalogo entity);
 
     List<CatalogoResponseDto> toResponseDto(List<Catalogo> entities);

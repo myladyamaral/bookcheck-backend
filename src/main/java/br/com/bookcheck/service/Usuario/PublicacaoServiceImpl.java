@@ -47,12 +47,12 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
     @Override
     public List<PublicacaoResponseDto> getPublicacoes(Long usuarioId) {
-        return publicacaoMapper.toResponseDto(publicacaoRepository.findByUsuarioId(usuarioId));
+        return publicacaoMapper.toResponseDto(publicacaoRepository.findByAutorId(usuarioId));
     }
 
     @Override
     public Page<PublicacaoResponseDto> getPublicacoes(Long usuarioId, Pageable pageable) {
-        return publicacaoMapper.toResponseDto(publicacaoRepository.findByUsuarioId(usuarioId,pageable));
+        return publicacaoMapper.toResponseDto(publicacaoRepository.findByAutorId(usuarioId,pageable));
     }
 
     @Override
@@ -62,12 +62,12 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
     @Override
     public List<PublicacaoResponseDto> getAllPublicacoes() {
-        return publicacaoMapper.toResponseDto(publicacaoRepository.findAllPublicacoes());
+        return publicacaoMapper.toResponseDto(publicacaoRepository.findAll());
     }
 
     @Override
     public Page<PublicacaoResponseDto> getAllPublicacoes(Pageable pageable) {
-        return publicacaoMapper.toResponseDto(publicacaoRepository.findAllPublicacoes(pageable));
+        return publicacaoMapper.toResponseDto(publicacaoRepository.findAll(pageable));
     }
 }
 
