@@ -16,12 +16,8 @@ public interface LivroMapper {
     LivroMapper INSTANCE = Mappers.getMapper(LivroMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "autor", source = "autorId")
-    @Mapping(target = "editora", source = "editoraId")
     Livro toEntity(LivroRequestDto dto);
 
-    @Mapping(target = "autor", source = "autor")
-    @Mapping(target = "editora", source = "editora")
     LivroResponseDto toResponseDto(Livro entity);
 
     void updateLivroFromDto(LivroRequestDto dto, @MappingTarget Livro entity);

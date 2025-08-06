@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface AutorRepository extends JpaRepository<Autor, Long>, JpaSpecificationExecutor<Usuario>{
+public interface AutorRepository extends JpaRepository<Autor, Long>, JpaSpecificationExecutor<Autor>{
 
     Optional<Autor> findById(Long id);
 

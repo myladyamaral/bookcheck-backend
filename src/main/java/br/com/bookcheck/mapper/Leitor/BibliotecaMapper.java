@@ -18,8 +18,12 @@ public interface BibliotecaMapper {
     BibliotecaMapper INSTANCE = Mappers.getMapper(BibliotecaMapper.class);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "isbn", source = "isbn")
+    @Mapping(target = "leitor.id", source = "leitorId")
     Biblioteca toEntity(BibliotecaRequestDto dto);
 
+    @Mapping(target = "isbn", source = "isbn")
+    @Mapping(target = "leitor", source = "leitor")
     BibliotecaResponseDto toResponseDto(Biblioteca entity);
 
     void updateEntityFromDto(BibliotecaUpdateRequestDto updated, @MappingTarget Biblioteca entity);

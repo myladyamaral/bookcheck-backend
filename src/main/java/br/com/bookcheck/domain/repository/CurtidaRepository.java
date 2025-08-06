@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CurtidaRepository extends JpaRepository<Curtida, Long>, JpaSpecificationExecutor<Usuario>{
+public interface CurtidaRepository extends JpaRepository<Curtida, Long>, JpaSpecificationExecutor<Curtida>{
 
     Optional<Curtida> findById(Long id);
 

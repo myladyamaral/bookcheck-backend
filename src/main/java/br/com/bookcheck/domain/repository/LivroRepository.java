@@ -9,11 +9,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface LivroRepository extends JpaRepository<Livro, Long>, JpaSpecificationExecutor<Usuario>{
+public interface LivroRepository extends JpaRepository<Livro, Long>, JpaSpecificationExecutor<Livro>{
 
     Optional<Livro> findById(Long id);
 
 
-
-
+   Livro findByIsbn(String isbn);
 }

@@ -10,8 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CatalogoRequestDto {
+    private String isbn;
     private Long seboId;
-    private Long livroId;
     private EstadoConservacaoEnum estadoConservacao;
     private Double preco;
     private Integer quantidade;

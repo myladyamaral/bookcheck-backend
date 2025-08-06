@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 public class MensagemRequestDto {
     private String texto;
     private LocalDateTime dataHora = LocalDateTime.now();
-    private Long remetenteId;
     private Long destinatarioId;
 }
 

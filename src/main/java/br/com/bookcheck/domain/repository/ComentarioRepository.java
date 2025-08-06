@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ComentarioRepository extends JpaRepository<Comentario, Long>, JpaSpecificationExecutor<Usuario>{
+public interface ComentarioRepository extends JpaRepository<Comentario, Long>, JpaSpecificationExecutor<Comentario>{
 
     Optional<Comentario> findById(Long id);
 

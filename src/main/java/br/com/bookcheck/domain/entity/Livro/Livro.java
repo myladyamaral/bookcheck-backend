@@ -37,7 +37,7 @@ public class Livro {
 
     @Column(nullable = false)
     private String idioma;
-
+/*
     @Column(name = "genero", nullable = false)
     @Convert(converter = GeneroLiterarioConverter.class)
     private GeneroLiterarioEnum genero;
@@ -48,6 +48,6 @@ public class Livro {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "editora_id", nullable = false)
-    private Editora editora;
+    private Editora editora;*/
 
 }
