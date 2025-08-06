@@ -2,6 +2,7 @@ package br.com.bookcheck.domain.repository;
 
 import br.com.bookcheck.domain.entity.Sebo.Catalogo;
 import br.com.bookcheck.domain.entity.Usuario.Usuario;
+import br.com.bookcheck.domain.enums.DisponibilidadeCatalogoEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,13 +13,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CatalogoRepository extends JpaRepository<Catalogo, Long>, JpaSpecificationExecutor<Usuario>{
+public interface CatalogoRepository extends JpaRepository<Catalogo, Long>, JpaSpecificationExecutor<Catalogo>{
 
     Optional<Catalogo> findById(Long id);
 
-    List<Catalogo> findBySeboId(Long seboId);
+    Optional<Catalogo> findBySeboIdAndIsbn(Long seboId, String isbn);
 
-    Page<Catalogo> findAllBySeboId(Long seboId, Pageable pageable);
+    List<Catalogo> findBySeboIdAndStatus(Long seboId, DisponibilidadeCatalogoEnum status);
 
-
+    Page<Catalogo> findAllBySeboIdAndStatus(Long seboId, DisponibilidadeCatalogoEnum status, Pageable pageable);
+    
 }

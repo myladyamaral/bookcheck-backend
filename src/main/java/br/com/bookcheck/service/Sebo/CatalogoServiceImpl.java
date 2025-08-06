@@ -1,14 +1,19 @@
 package br.com.bookcheck.service.Sebo;
 
 
+import br.com.bookcheck.controller.dto.request.Livro.LivroRequestDto;
 import br.com.bookcheck.controller.dto.request.Sebo.CatalogoRequestDto;
+import br.com.bookcheck.controller.dto.response.Livro.LivroResponseDto;
 import br.com.bookcheck.controller.dto.response.Sebo.CatalogoResponseDto;
 import br.com.bookcheck.domain.entity.Livro.Livro;
 import br.com.bookcheck.domain.entity.Sebo.Catalogo;
+import br.com.bookcheck.domain.enums.DisponibilidadeCatalogoEnum;
 import br.com.bookcheck.domain.repository.CatalogoRepository;
 import br.com.bookcheck.domain.repository.LivroRepository;
 import br.com.bookcheck.exception.ServiceBusinessException;
+import br.com.bookcheck.mapper.Livro.LivroMapper;
 import br.com.bookcheck.mapper.Sebo.CatalogoMapper;
+import br.com.bookcheck.service.OpenLibraryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -16,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -25,13 +31,23 @@ public class CatalogoServiceImpl implements CatalogoService {
 
     private final CatalogoRepository catalogoRepository;
     private final CatalogoMapper catalogoMapper;
-    private final LivroRepository livroRepository;
+    private final OpenLibraryService openLibraryService;
 
     @Override
     public CatalogoResponseDto createCatalogo(CatalogoRequestDto request) {
         try {
-            Livro livro = livroRepository.findById(request.getLivroId())
-                    .orElseThrow(() -> new ServiceBusinessException("Livro com ID " + request.getLivroId() + " não encontrada"));
+            // Busca o livro na OpenLibrary
+            LivroRequestDto livroRequest = openLibraryService.searchBookByIsbn(request.getIsbn());
+
+            if (livroRequest == null) {
+                throw new ServiceBusinessException("Livro não encontrado na OpenLibrary para o ISBN: " + request.getIsbn());
+            }
+
+            Optional<Catalogo> optionalCatalogo = catalogoRepository.findBySeboIdAndIsbn(request.getSeboId(), request.getIsbn());
+
+            if(optionalCatalogo.isPresent()) {
+                throw new ServiceBusinessException("Livro já cadastrado no catálogo: " + request.getIsbn());
+            }
 
             Catalogo catalogo = catalogoMapper.toEntity(request);
             Catalogo savedCatalogo = catalogoRepository.save(catalogo);
@@ -52,17 +68,18 @@ public class CatalogoServiceImpl implements CatalogoService {
 
     @Override
     public List<CatalogoResponseDto> getAllCatalogos(Long seboId) {
-        return catalogoMapper.toResponseDto(catalogoRepository.findBySeboId(seboId));
+        return catalogoMapper.toResponseDto(catalogoRepository.findBySeboIdAndStatus(seboId, DisponibilidadeCatalogoEnum.DISPONIVEL));
     }
 
     @Override
     public Page<CatalogoResponseDto> getAllCatalogos(Long seboId, Pageable pageable) {
-        return catalogoMapper.toResponseDto(catalogoRepository.findAllBySeboId(seboId,pageable));
+        return catalogoMapper.toResponseDto(catalogoRepository.findAllBySeboIdAndStatus(seboId,DisponibilidadeCatalogoEnum.DISPONIVEL,pageable));
     }
 
     @Override
     public void deleteCatalogo(Long id) {
         catalogoRepository.deleteById(id);
     }
+
 }
 
