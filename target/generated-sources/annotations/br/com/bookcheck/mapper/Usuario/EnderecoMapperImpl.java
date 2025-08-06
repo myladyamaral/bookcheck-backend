@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-28T12:16:55-0300",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-08-05T21:23:03-0300",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250729-0351, environment: Java 21.0.8 (Eclipse Adoptium)"
 )
 @Component
 public class EnderecoMapperImpl implements EnderecoMapper {
@@ -40,19 +40,19 @@ public class EnderecoMapperImpl implements EnderecoMapper {
             return null;
         }
 
-        EnderecoResponseDto enderecoResponseDto = new EnderecoResponseDto();
+        EnderecoResponseDto.EnderecoResponseDtoBuilder<?, ?> enderecoResponseDto = EnderecoResponseDto.builder();
 
-        enderecoResponseDto.setBairro( entity.getBairro() );
-        enderecoResponseDto.setCep( entity.getCep() );
-        enderecoResponseDto.setCidade( entity.getCidade() );
-        enderecoResponseDto.setComplemento( entity.getComplemento() );
-        enderecoResponseDto.setId( entity.getId() );
-        enderecoResponseDto.setLogradouro( entity.getLogradouro() );
-        enderecoResponseDto.setNumero( entity.getNumero() );
-        enderecoResponseDto.setTipoLogradouro( entity.getTipoLogradouro() );
-        enderecoResponseDto.setUf( entity.getUf() );
+        enderecoResponseDto.bairro( entity.getBairro() );
+        enderecoResponseDto.cep( entity.getCep() );
+        enderecoResponseDto.cidade( entity.getCidade() );
+        enderecoResponseDto.complemento( entity.getComplemento() );
+        enderecoResponseDto.id( entity.getId() );
+        enderecoResponseDto.logradouro( entity.getLogradouro() );
+        enderecoResponseDto.numero( entity.getNumero() );
+        enderecoResponseDto.tipoLogradouro( entity.getTipoLogradouro() );
+        enderecoResponseDto.uf( entity.getUf() );
 
-        return enderecoResponseDto;
+        return enderecoResponseDto.build();
     }
 
     @Override
