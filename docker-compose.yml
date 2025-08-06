@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: bookcheck_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: bookcheck
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - db_data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    container_name: bookcheck_api
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_NAME: bookcheck
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_SCHEMA: bookcheck
+      LINK_HOST: http://localhost:8080
+    ports:
+      - "8080:8080"
+
+volumes:
+  db_data:
