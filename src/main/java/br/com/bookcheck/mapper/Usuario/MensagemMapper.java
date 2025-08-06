@@ -6,6 +6,9 @@ import br.com.bookcheck.domain.entity.Usuario.Mensagem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MensagemMapper {
@@ -17,5 +20,9 @@ public interface MensagemMapper {
 
     MensagemResponseDto toResponseDto(Mensagem entity);
 
+    List<MensagemResponseDto> toResponseDto(List<Mensagem> entities);
 
+    default Page<MensagemResponseDto> toResponseDto(Page<Mensagem> entities){
+        return entities.map(this::toResponseDto);
+    }
 }

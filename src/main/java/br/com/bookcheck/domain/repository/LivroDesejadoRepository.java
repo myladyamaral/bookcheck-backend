@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface LivroDesejadoRepository extends JpaRepository<LivroDesejado, Long>, JpaSpecificationExecutor<Usuario>{
+public interface LivroDesejadoRepository extends JpaRepository<LivroDesejado, Long>, JpaSpecificationExecutor<LivroDesejado>{
 
     Optional<LivroDesejado> findById(Long id);
 
     List<LivroDesejado> findByLeitorId(Long leitorId);
     Page<LivroDesejado> findByLeitorId(Long leitorId, Pageable pageable);
 
+    Optional<LivroDesejado> findByLeitorIdAndIsbn(Long leitorId, String isbn);
 }

@@ -32,7 +32,7 @@ public class BookcheckApplication {
 		TimeZone.setDefault(TimeZone.getTimeZone("America/Fortaleza"));
 	}
 
-	@Bean
+	/*@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
@@ -44,5 +44,5 @@ public class BookcheckApplication {
 						.allowedHeaders("*");
 			}
 		};
-	}
+	}*/
 }

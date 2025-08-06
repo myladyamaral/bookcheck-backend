@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Endereco, Long>, JpaSpecificationExecutor<Usuario>{
+public interface EnderecoRepository extends JpaRepository<Endereco, Long>, JpaSpecificationExecutor<Endereco>{
 
     Optional<Endereco> findById(Long id);
 

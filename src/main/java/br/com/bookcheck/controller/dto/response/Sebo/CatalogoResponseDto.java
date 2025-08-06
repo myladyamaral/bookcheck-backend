@@ -14,7 +14,7 @@ import lombok.*;
 public class CatalogoResponseDto {
     private Long id;
     private UsuarioSeboResponseDto sebo;
-    private LivroResponseDto livro;
+    private String isbn;
     private EstadoConservacaoEnum estadoConservacao;
     private Double preco;
     private Integer quantidade;

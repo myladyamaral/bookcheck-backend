@@ -12,6 +12,6 @@ import lombok.*;
 public class LivroDesejadoResponseDto {
     private Long id;
     private UsuarioLeitorResponseDto leitor;
-    private LivroResponseDto livro;
+    private String isbn;
 }
 

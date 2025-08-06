@@ -27,8 +27,7 @@ public class LivroDesejado {
     private UsuarioLeitor leitor;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "livro_id", nullable = false)
-    private Livro livro;
+    @Column(nullable = false)
+    private String isbn;
 
 }

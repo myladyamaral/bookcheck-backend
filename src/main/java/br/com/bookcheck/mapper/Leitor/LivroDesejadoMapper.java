@@ -16,11 +16,11 @@ public interface LivroDesejadoMapper {
     LivroDesejadoMapper INSTANCE = Mappers.getMapper(LivroDesejadoMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "livro.id", source = "livroId")
+    @Mapping(target = "isbn", source = "isbn")
     @Mapping(target = "leitor.id", source = "leitorId")
     LivroDesejado toEntity(LivroDesejadoRequestDto dto);
 
-    @Mapping(target = "livro", source = "livro")
+    @Mapping(target = "isbn", source = "isbn")
     @Mapping(target = "leitor", source = "leitor")
     LivroDesejadoResponseDto toResponseDto(LivroDesejado entity);
 

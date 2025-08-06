@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BibliotecaRepository extends JpaRepository<Biblioteca, Long>, JpaSpecificationExecutor<Usuario>{
+public interface BibliotecaRepository extends JpaRepository<Biblioteca, Long>, JpaSpecificationExecutor<Biblioteca>{
 
     Optional<Biblioteca> findById(Long id);
+
+    Optional<Biblioteca> findByLeitorIdAndIsbn(Long leitorID, String isbn);
     List<Biblioteca> findByLeitorId(Long leitorId);
 
     Page<Biblioteca> findByLeitorId(Long leitorId, Pageable pageable);

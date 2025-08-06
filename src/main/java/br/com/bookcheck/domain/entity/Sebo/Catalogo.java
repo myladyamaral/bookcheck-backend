@@ -31,9 +31,8 @@ public class Catalogo {
     @JoinColumn(name = "sebo_id", nullable = false)
     private UsuarioSebo sebo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "livro_id", nullable = false)
-    private Livro livro;
+    @Column(nullable = false)
+    private String isbn;
 
     @Column(name = "estado_conservacao", nullable = false)
     @Convert(converter = EstadoConservacaoConverter.class)
