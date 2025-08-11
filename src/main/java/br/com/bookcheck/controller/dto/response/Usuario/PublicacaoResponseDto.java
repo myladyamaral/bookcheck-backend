@@ -14,7 +14,7 @@ public class PublicacaoResponseDto {
     private Long id;
     private String texto;
     private LocalDateTime dataHora;
-    private UsuarioResponseDto autorId;
+    private UsuarioResponseDto autor;
     private List<ComentarioResponseDto> comentarios;
 }
 

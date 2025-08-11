@@ -8,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @SuperBuilder
-public abstract class UsuarioResponseDto {
+public class UsuarioResponseDto {
     private Long id;
     private String nome;
     private String email;

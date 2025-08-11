@@ -80,8 +80,8 @@ public class PublicacaoController {
                     content = @Content(schema = @Schema(implementation = Page.class))),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    @GetMapping("/list/all")
-    public ResponseEntity<List<PublicacaoResponseDto>> getAllPublicacoes() {
+    @GetMapping("/list")
+    public ResponseEntity<List<PublicacaoResponseDto>> getListPublicacoes() {
         return ResponseEntity.ok(publicacaoService.getAllPublicacoes());
     }
 
