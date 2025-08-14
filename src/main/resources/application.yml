@@ -84,6 +84,7 @@ security:
       - /api/auth/login
       - /api/usuario/leitor
       - /api/usuario/sebo
+      - /api/search
 
 logging:
   level:
