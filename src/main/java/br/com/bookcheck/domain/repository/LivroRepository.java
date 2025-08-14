@@ -13,6 +13,5 @@ public interface LivroRepository extends JpaRepository<Livro, Long>, JpaSpecific
 
     Optional<Livro> findById(Long id);
 
-
-   Livro findByIsbn(String isbn);
+    Livro findByIsbn(String isbn);
 }
