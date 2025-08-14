@@ -3,12 +3,6 @@
 bookcheck-backend
 ├─ .docker
 │  └─ init.sql
-├─ .idea
-│  ├─ compiler.xml
-│  ├─ encodings.xml
-│  ├─ jarRepositories.xml
-│  ├─ misc.xml
-│  └─ vcs.xml
 ├─ docker-compose.yml
 ├─ Dockerfile
 ├─ HELP.md

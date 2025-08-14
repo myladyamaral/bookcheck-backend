@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface PublicacaoService {
-    PublicacaoResponseDto createPublicacao(PublicacaoRequestDto request);
+    PublicacaoResponseDto createPublicacao(PublicacaoRequestDto request, String userEmail);
     PublicacaoResponseDto getPublicacaoById(Long id);
     List<PublicacaoResponseDto> getPublicacoes(Long leitorId);
     Page<PublicacaoResponseDto> getPublicacoes(Long leitorId, Pageable pageable);

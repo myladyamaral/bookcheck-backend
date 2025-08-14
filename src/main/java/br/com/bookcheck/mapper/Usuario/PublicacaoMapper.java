@@ -27,6 +27,4 @@ public interface PublicacaoMapper {
     default Page<PublicacaoResponseDto> toResponseDto(Page<Publicacao> entities){
         return entities.map(this::toResponseDto);
     }
-
-
 }

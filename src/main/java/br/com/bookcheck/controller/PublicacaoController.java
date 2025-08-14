@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -33,6 +34,7 @@ public class PublicacaoController {
     /**
      * Endpoint para criar uma nova publicação
      * @param request DTO contendo os dados da publicação
+     * @param principal Objeto que representa o usuário autenticado
      * @return ResponseEntity com os dados da publicação criada
      */
     @Operation(summary = "Criar publicação", description = "Cria uma nova publicação para um usuário")
@@ -46,8 +48,9 @@ public class PublicacaoController {
     @PostMapping
     public ResponseEntity<PublicacaoResponseDto> createPublicacao(
             @Parameter(description = "Dados da publicação a ser criada", required = true)
-            @RequestBody @Valid PublicacaoRequestDto request) {
-        PublicacaoResponseDto response = publicacaoService.createPublicacao(request);
+            @RequestBody @Valid PublicacaoRequestDto request,
+            Principal principal) {
+        PublicacaoResponseDto response = publicacaoService.createPublicacao(request, principal.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

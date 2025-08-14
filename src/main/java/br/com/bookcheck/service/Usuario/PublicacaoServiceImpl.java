@@ -4,7 +4,9 @@ package br.com.bookcheck.service.Usuario;
 import br.com.bookcheck.controller.dto.request.Usuario.PublicacaoRequestDto;
 import br.com.bookcheck.controller.dto.response.Usuario.PublicacaoResponseDto;
 import br.com.bookcheck.domain.entity.Usuario.Publicacao;
+import br.com.bookcheck.domain.entity.Usuario.Usuario;
 import br.com.bookcheck.domain.repository.PublicacaoRepository;
+import br.com.bookcheck.domain.repository.UsuarioRepository;
 import br.com.bookcheck.exception.ServiceBusinessException;
 import br.com.bookcheck.mapper.Usuario.PublicacaoMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +25,17 @@ public class PublicacaoServiceImpl implements PublicacaoService {
 
     private final PublicacaoRepository publicacaoRepository;
     private final PublicacaoMapper publicacaoMapper;
+    private final UsuarioRepository usuarioRepository;
 
     @Override
-    public PublicacaoResponseDto createPublicacao(PublicacaoRequestDto request) {
+    public PublicacaoResponseDto createPublicacao(PublicacaoRequestDto request, String userEmail) {
         try {
+            Usuario autor = usuarioRepository.findByEmail(userEmail)
+                    .orElseThrow(() -> new ServiceBusinessException("Usuário autor não encontrado."));
 
             Publicacao publicacao = publicacaoMapper.toEntity(request);
+            publicacao.setAutor(autor);
+
             Publicacao savedPublicacao = publicacaoRepository.save(publicacao);
             return publicacaoMapper.toResponseDto(savedPublicacao);
         }catch (ServiceBusinessException e) {
@@ -70,4 +77,3 @@ public class PublicacaoServiceImpl implements PublicacaoService {
         return publicacaoMapper.toResponseDto(publicacaoRepository.findAll(pageable));
     }
 }
-
