@@ -1,5 +1,6 @@
 package br.com.bookcheck.controller.dto.response.Usuario;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -12,8 +13,10 @@ import java.time.LocalDateTime;
 public class ComentarioResponseDto {
     private Long id;
     private String texto;
-    private LocalDateTime dataHora;
-    private UsuarioResponseDto usuarioId;
-    private PublicacaoResponseDto publicacaoId;
-}
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dataHora;
+
+    private UsuarioResponseDto autor;
+    private PublicacaoResponseDto publicacao;
+}

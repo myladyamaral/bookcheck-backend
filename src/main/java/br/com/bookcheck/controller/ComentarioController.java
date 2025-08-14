@@ -1,7 +1,6 @@
 package br.com.bookcheck.controller;
 
 import br.com.bookcheck.controller.dto.request.Usuario.ComentarioRequestDto;
-import br.com.bookcheck.controller.dto.response.GenericSuccessResponseDto;
 import br.com.bookcheck.controller.dto.response.Usuario.ComentarioResponseDto;
 import br.com.bookcheck.service.Usuario.ComentarioService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -20,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -33,6 +33,7 @@ public class ComentarioController {
     /**
      * Endpoint para criar um novo comentário
      * @param request DTO contendo os dados do comentário
+     * @param principal Objeto que representa o usuário autenticado
      * @return ResponseEntity com os dados do comentário criado
      */
     @Operation(summary = "Criar comentário", description = "Cria um novo comentário para uma publicação")
@@ -46,8 +47,9 @@ public class ComentarioController {
     @PostMapping
     public ResponseEntity<ComentarioResponseDto> createComentario(
             @Parameter(description = "Dados do comentário a ser criado", required = true)
-            @RequestBody @Valid ComentarioRequestDto request) {
-        ComentarioResponseDto response = comentarioService.createComentario(request);
+            @RequestBody @Valid ComentarioRequestDto request,
+            Principal principal) {
+        ComentarioResponseDto response = comentarioService.createComentario(request, principal.getName());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

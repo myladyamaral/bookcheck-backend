@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface ComentarioService {
-    ComentarioResponseDto createComentario(ComentarioRequestDto request);
+    ComentarioResponseDto createComentario(ComentarioRequestDto request, String userEmail);
     ComentarioResponseDto getComentarioById(Long id);
     List<ComentarioResponseDto> getComentariosByPublicacao(Long publicacaoId);
     Page<ComentarioResponseDto> getComentariosByPublicacao(Long publicacaoId, Pageable pageable);

@@ -10,14 +10,17 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {UsuarioMapper.class, PublicacaoMapper.class})
 public interface ComentarioMapper {
 
     ComentarioMapper INSTANCE = Mappers.getMapper(ComentarioMapper.class);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "publicacao.id", source = "publicacaoId")
     Comentario toEntity(ComentarioRequestDto dto);
 
+    @Mapping(target = "autor", source = "autor")
+    @Mapping(target = "publicacao", source = "publicacao")
     ComentarioResponseDto toResponseDto(Comentario entity);
 
     List<ComentarioResponseDto> toResponseDto(List<Comentario> entities);
@@ -25,6 +28,4 @@ public interface ComentarioMapper {
     default Page<ComentarioResponseDto> toResponseDto(Page<Comentario> entities){
         return entities.map(this::toResponseDto);
     }
-
-
 }
