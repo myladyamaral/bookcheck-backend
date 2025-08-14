@@ -11,9 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class CurtidaResponseDto {
     private Long id;
-    private String texto;
     private LocalDateTime dataHora;
-    private UsuarioResponseDto usuarioId;
-    private PublicacaoResponseDto publicacaoId;
+    private UsuarioResponseDto autor;
 }
-

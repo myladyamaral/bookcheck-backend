@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UsuarioMapper.class})
+@Mapper(componentModel = "spring", uses = {UsuarioMapper.class, CurtidaMapper.class})
 public interface PublicacaoMapper {
 
     PublicacaoMapper INSTANCE = Mappers.getMapper(PublicacaoMapper.class);
@@ -20,6 +20,7 @@ public interface PublicacaoMapper {
     Publicacao toEntity(PublicacaoRequestDto dto);
 
     @Mapping(target = "autor", source = "autor")
+    @Mapping(target = "curtidas", source = "curtidas")
     PublicacaoResponseDto toResponseDto(Publicacao entity);
 
     List<PublicacaoResponseDto> toResponseDto(List<Publicacao> entities);

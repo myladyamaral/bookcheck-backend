@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {UsuarioMapper.class})
 public interface CurtidaMapper {
 
     CurtidaMapper INSTANCE = Mappers.getMapper(CurtidaMapper.class);
@@ -15,7 +15,6 @@ public interface CurtidaMapper {
     @Mapping(target = "id", ignore = true)
     Curtida toEntity(CurtidaRequestDto dto);
 
+    @Mapping(target = "autor", source = "autor")
     CurtidaResponseDto toResponseDto(Curtida entity);
-
-
 }

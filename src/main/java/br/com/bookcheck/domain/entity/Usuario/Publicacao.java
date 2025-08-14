@@ -38,4 +38,7 @@ public class Publicacao {
     @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comentario> comentarios = new ArrayList<>();
 
+    // ADICIONE ESTA RELAÇÃO
+    @OneToMany(mappedBy = "publicacao", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Curtida> curtidas = new ArrayList<>();
 }

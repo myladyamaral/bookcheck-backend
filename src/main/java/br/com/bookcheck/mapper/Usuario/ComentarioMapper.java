@@ -10,7 +10,8 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = {UsuarioMapper.class, PublicacaoMapper.class})
+// A dependência do PublicacaoMapper foi removida da cláusula 'uses'
+@Mapper(componentModel = "spring", uses = {UsuarioMapper.class})
 public interface ComentarioMapper {
 
     ComentarioMapper INSTANCE = Mappers.getMapper(ComentarioMapper.class);
@@ -19,8 +20,8 @@ public interface ComentarioMapper {
     @Mapping(target = "publicacao.id", source = "publicacaoId")
     Comentario toEntity(ComentarioRequestDto dto);
 
+    // O mapeamento para 'publicacao' foi removido
     @Mapping(target = "autor", source = "autor")
-    @Mapping(target = "publicacao", source = "publicacao")
     ComentarioResponseDto toResponseDto(Comentario entity);
 
     List<ComentarioResponseDto> toResponseDto(List<Comentario> entities);

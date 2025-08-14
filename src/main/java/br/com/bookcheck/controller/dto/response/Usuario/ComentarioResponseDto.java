@@ -18,5 +18,5 @@ public class ComentarioResponseDto {
     private LocalDateTime dataHora;
 
     private UsuarioResponseDto autor;
-    private PublicacaoResponseDto publicacao;
+
 }
