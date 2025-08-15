@@ -13,7 +13,7 @@ import lombok.*;
 public class BibliotecaResponseDto {
     private Long id;
     private UsuarioLeitorResponseDto leitor;
-    private String isbn;
+    private String workId;
     private EstadoConservacaoEnum estadoConservacao;
     private StatusLeituraEnum statusLeitura;
 }

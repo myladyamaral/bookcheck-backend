@@ -1,7 +1,6 @@
 package br.com.bookcheck.domain.repository;
 
 import br.com.bookcheck.domain.entity.Leitor.Biblioteca;
-import br.com.bookcheck.domain.entity.Usuario.Usuario;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,7 +16,7 @@ public interface BibliotecaRepository extends JpaRepository<Biblioteca, Long>, J
 
     Optional<Biblioteca> findById(Long id);
 
-    Optional<Biblioteca> findByLeitorIdAndIsbn(Long leitorID, String isbn);
+    Optional<Biblioteca> findByLeitorIdAndWorkId(Long leitorID, String workId); // ALTERADO
     List<Biblioteca> findByLeitorId(Long leitorId);
 
     Page<Biblioteca> findByLeitorId(Long leitorId, Pageable pageable);

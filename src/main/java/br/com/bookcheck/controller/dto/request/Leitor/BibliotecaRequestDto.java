@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 public class BibliotecaRequestDto {
     private Long leitorId;
-    private String isbn;
+    private String workId;
     private EstadoConservacaoEnum estadoConservacao;
     private StatusLeituraEnum statusLeitura;
 }
