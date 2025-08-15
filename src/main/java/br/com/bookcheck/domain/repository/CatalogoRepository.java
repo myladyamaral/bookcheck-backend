@@ -22,5 +22,8 @@ public interface CatalogoRepository extends JpaRepository<Catalogo, Long>, JpaSp
     List<Catalogo> findBySeboIdAndStatus(Long seboId, DisponibilidadeCatalogoEnum status);
 
     Page<Catalogo> findAllBySeboIdAndStatus(Long seboId, DisponibilidadeCatalogoEnum status, Pageable pageable);
-    
+
+    List<Catalogo> findBySeboId(Long seboId);
+
+    Page<Catalogo> findAllBySeboId(Long seboId, Pageable pageable);
 }

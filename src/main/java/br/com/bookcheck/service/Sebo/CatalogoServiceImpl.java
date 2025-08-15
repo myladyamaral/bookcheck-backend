@@ -69,12 +69,12 @@ public class CatalogoServiceImpl implements CatalogoService {
 
     @Override
     public List<CatalogoResponseDto> getAllCatalogos(Long seboId) {
-        return catalogoMapper.toResponseDto(catalogoRepository.findBySeboIdAndStatus(seboId, DisponibilidadeCatalogoEnum.DISPONIVEL));
+        return catalogoMapper.toResponseDto(catalogoRepository.findBySeboId(seboId));
     }
 
     @Override
     public Page<CatalogoResponseDto> getAllCatalogos(Long seboId, Pageable pageable) {
-        return catalogoMapper.toResponseDto(catalogoRepository.findAllBySeboIdAndStatus(seboId,DisponibilidadeCatalogoEnum.DISPONIVEL,pageable));
+        return catalogoMapper.toResponseDto(catalogoRepository.findAllBySeboId(seboId,pageable));
     }
 
     @Override
@@ -83,4 +83,3 @@ public class CatalogoServiceImpl implements CatalogoService {
     }
 
 }
-
