@@ -1,0 +1,19 @@
+package br.com.bookcheck.controller.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class MensagemDTO {
+    private Long id;
+    private String conteudo;
+    private String dataEnvio; // ISO string
+    private boolean lida;
+    private UserSummaryDTO remetente;
+    private UserSummaryDTO destinatario;
+}

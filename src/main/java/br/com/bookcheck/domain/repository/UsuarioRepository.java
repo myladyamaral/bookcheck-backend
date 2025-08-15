@@ -26,5 +26,4 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>, JpaSpec
 
     List<Usuario> findAll();
     Page<Usuario> findAll(Pageable pageable);
-
 }

@@ -34,6 +34,7 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(jwtConfigProperties.getOpenUrls().toArray(new String[0])).permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/chat-websocket/**", "/chat-websocket").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
