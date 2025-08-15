@@ -17,7 +17,7 @@ public interface CatalogoRepository extends JpaRepository<Catalogo, Long>, JpaSp
 
     Optional<Catalogo> findById(Long id);
 
-    Optional<Catalogo> findBySeboIdAndIsbn(Long seboId, String isbn);
+    Optional<Catalogo> findBySeboIdAndWorkId(Long seboId, String workId);
 
     List<Catalogo> findBySeboIdAndStatus(Long seboId, DisponibilidadeCatalogoEnum status);
 

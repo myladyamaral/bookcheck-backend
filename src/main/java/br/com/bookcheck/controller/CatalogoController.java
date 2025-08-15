@@ -1,8 +1,8 @@
 package br.com.bookcheck.controller;
 
 import br.com.bookcheck.controller.dto.request.Sebo.CatalogoRequestDto;
+import br.com.bookcheck.controller.dto.request.Sebo.CatalogoUpdateRequestDto;
 import br.com.bookcheck.controller.dto.response.Sebo.CatalogoResponseDto;
-import br.com.bookcheck.service.OpenLibraryService;
 import br.com.bookcheck.service.Sebo.CatalogoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -29,13 +29,7 @@ import java.util.List;
 public class CatalogoController {
 
     private final CatalogoService catalogoService;
-    private final OpenLibraryService  openLibraryService;
 
-    /**
-     * Endpoint para adicionar um novo livro ao catálogo de um sebo
-     * @param request DTO contendo os dados do livro a ser adicionado ao catálogo
-     * @return ResponseEntity contendo o DTO de resposta com os dados do livro no catálogo
-     */
     @Operation(summary = "Adicionar livro ao catálogo", description = "Adiciona um novo livro ao catálogo de um sebo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Livro adicionado ao catálogo com sucesso",
@@ -52,12 +46,6 @@ public class CatalogoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    /**
-     * Endpoint para obter a lista paginada de livros no catálogo de um sebo
-     * @param seboId ID do sebo
-     * @param pageable Configuração de paginação
-     * @return ResponseEntity contendo a página de livros do catálogo
-     */
     @Operation(summary = "Listar livros do catálogo (paginado)", description = "Obtém a lista paginada de livros no catálogo de um sebo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de livros do catálogo retornada com sucesso",
@@ -74,11 +62,6 @@ public class CatalogoController {
         return ResponseEntity.ok(catalogoService.getAllCatalogos(seboId, pageable));
     }
 
-    /**
-     * Endpoint para obter um livro específico do catálogo por ID
-     * @param id ID do livro no catálogo
-     * @return ResponseEntity contendo os dados do livro no catálogo
-     */
     @Operation(summary = "Obter livro do catálogo por ID", description = "Obtém um livro específico do catálogo pelo seu ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Livro do catálogo encontrado",
@@ -93,11 +76,6 @@ public class CatalogoController {
         return ResponseEntity.ok(catalogoService.getCatalogoById(id));
     }
 
-    /**
-     * Endpoint para obter a lista completa de livros no catálogo de um sebo
-     * @param seboId ID do sebo
-     * @return ResponseEntity contendo a lista completa de livros do catálogo
-     */
     @Operation(summary = "Listar todos os livros do catálogo", description = "Obtém a lista completa de livros no catálogo de um sebo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista de livros do catálogo retornada com sucesso",
@@ -112,23 +90,28 @@ public class CatalogoController {
         return ResponseEntity.ok(catalogoService.getAllCatalogos(seboId));
     }
 
-    /**
-     * Endpoint para remover um livro do catálogo de um sebo
-     * @param id ID do livro a ser removido do catálogo
-     * @return ResponseEntity vazio com status 204 (No Content)
-     */
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar item do catálogo", description = "Atualiza os dados de um livro no catálogo de um sebo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Item atualizado com sucesso"),
+            @ApiResponse(responseCode = "404", description = "Item não encontrado no catálogo")
+    })
+    public ResponseEntity<CatalogoResponseDto> updateLivroCatalogo(
+            @Parameter(description = "ID do item no catálogo", required = true) @PathVariable Long id,
+            @Parameter(description = "Dados para atualização", required = true) @RequestBody @Valid CatalogoUpdateRequestDto request) {
+        CatalogoResponseDto response = catalogoService.updateCatalogo(id, request);
+        return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
     @Operation(summary = "Remover livro do catálogo", description = "Remove um livro do catálogo de um sebo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Livro removido do catálogo com sucesso"),
-            @ApiResponse(responseCode = "404", description = "Livro não encontrado no catálogo"),
-            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+            @ApiResponse(responseCode = "404", description = "Livro não encontrado")
     })
-    @DeleteMapping("/sebo/{id}")
     public ResponseEntity<Void> deleteLivroCatalogo(
-            @Parameter(description = "ID do livro no catálogo a ser removido", required = true, example = "1")
-            @PathVariable Long id) {
+            @Parameter(description = "ID do item no catálogo a ser removido", required = true) @PathVariable Long id) {
         catalogoService.deleteCatalogo(id);
         return ResponseEntity.noContent().build();
     }
-
 }

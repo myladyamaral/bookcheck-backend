@@ -18,11 +18,11 @@ public interface BibliotecaMapper {
     BibliotecaMapper INSTANCE = Mappers.getMapper(BibliotecaMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "isbn", source = "isbn")
+    @Mapping(target = "workId", source = "workId")
     @Mapping(target = "leitor.id", source = "leitorId")
     Biblioteca toEntity(BibliotecaRequestDto dto);
 
-    @Mapping(target = "isbn", source = "isbn")
+    @Mapping(target = "workId", source = "workId")
     @Mapping(target = "leitor", source = "leitor")
     BibliotecaResponseDto toResponseDto(Biblioteca entity);
 

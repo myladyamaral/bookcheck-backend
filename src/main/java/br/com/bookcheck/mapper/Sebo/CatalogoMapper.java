@@ -26,7 +26,7 @@ public interface CatalogoMapper {
     Catalogo toEntity(CatalogoRequestDto dto);
 
     @Mapping(target = "sebo", source = "sebo")
-    @Mapping(target = "isbn", source = "isbn")
+    @Mapping(target = "workId", source = "workId")
     CatalogoResponseDto toResponseDto(Catalogo entity);
 
     void updateEntityFromDto(CatalogoUpdateRequestDto updated, @MappingTarget Catalogo entity);

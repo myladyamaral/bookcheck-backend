@@ -1,6 +1,5 @@
 package br.com.bookcheck.domain.entity.Leitor;
 
-import br.com.bookcheck.domain.entity.Livro.Livro;
 import br.com.bookcheck.domain.entity.Usuario.UsuarioLeitor;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,8 +25,6 @@ public class LivroDesejado {
     @JoinColumn(name = "leitor_id", nullable = false)
     private UsuarioLeitor leitor;
 
-
-    @Column(nullable = false)
-    private String isbn;
-
+    @Column(name = "isbn", nullable = false)
+    private String workId;
 }

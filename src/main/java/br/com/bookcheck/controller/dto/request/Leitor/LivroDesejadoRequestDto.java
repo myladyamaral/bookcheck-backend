@@ -9,6 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 public class LivroDesejadoRequestDto {
     private Long leitorId;
-    private String isbn;
+    private String workId;
 }
 

@@ -31,8 +31,8 @@ public class Catalogo {
     @JoinColumn(name = "sebo_id", nullable = false)
     private UsuarioSebo sebo;
 
-    @Column(nullable = false)
-    private String isbn;
+    @Column(name = "isbn", nullable = false)
+    private String workId;
 
     @Column(name = "estado_conservacao", nullable = false)
     @Convert(converter = EstadoConservacaoConverter.class)

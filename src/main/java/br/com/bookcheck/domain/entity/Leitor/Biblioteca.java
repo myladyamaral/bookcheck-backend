@@ -1,6 +1,5 @@
 package br.com.bookcheck.domain.entity.Leitor;
 
-import br.com.bookcheck.domain.entity.Livro.Livro;
 import br.com.bookcheck.domain.entity.Usuario.UsuarioLeitor;
 import br.com.bookcheck.domain.enums.EstadoConservacaoEnum;
 import br.com.bookcheck.domain.enums.StatusLeituraEnum;
@@ -31,8 +30,8 @@ public class Biblioteca {
     @JoinColumn(name = "leitor_id", nullable = false)
     private UsuarioLeitor leitor;
 
-    @Column(nullable = false)
-    private String isbn;
+    @Column(name = "isbn", nullable = false) // ALTERADO
+        private String workId; // ALTERADO
 
     @Column(name = "estado_conservacao", nullable = false)
     @Convert(converter = EstadoConservacaoConverter.class)
