@@ -19,5 +19,6 @@ public interface LivroDesejadoRepository extends JpaRepository<LivroDesejado, Lo
     List<LivroDesejado> findByLeitorId(Long leitorId);
     Page<LivroDesejado> findByLeitorId(Long leitorId, Pageable pageable);
 
-    Optional<LivroDesejado> findByLeitorIdAndIsbn(Long leitorId, String isbn);
+    // Método alterado de findByLeitorIdAndIsbn para findByLeitorIdAndWorkId
+    Optional<LivroDesejado> findByLeitorIdAndWorkId(Long leitorId, String workId);
 }

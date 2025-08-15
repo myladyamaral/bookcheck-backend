@@ -29,30 +29,23 @@ public class LivroDesejadoServiceImpl implements LivroDesejadoService {
 
     private final LivroDesejadoRepository livroDesejadoRepository;
     private final LivroDesejadoMapper livroDesejadoMapper;
-    private final OpenLibraryService openLibraryService;
 
     @Override
     public LivroDesejadoResponseDto createLivroDesejado(LivroDesejadoRequestDto request) {
         try {
-            // Busca o livro na OpenLibrary
-            LivroRequestDto livroRequest = openLibraryService.searchBookByIsbn(request.getIsbn());
-
-            if (livroRequest == null) {
-                throw new ServiceBusinessException("Livro não encontrado na OpenLibrary para o ISBN: " + request.getIsbn());
-            }
-
-            Optional<LivroDesejado> optionalLivroDesejado = livroDesejadoRepository.findByLeitorIdAndIsbn(request.getLeitorId(), request.getIsbn());
+            // Valida se o livro já não está na lista de desejos usando o workId
+            Optional<LivroDesejado> optionalLivroDesejado = livroDesejadoRepository.findByLeitorIdAndWorkId(request.getLeitorId(), request.getWorkId());
 
             if(optionalLivroDesejado.isPresent()) {
-                throw new ServiceBusinessException("Livro já cadastrado nos livros desejados: " + request.getIsbn());
+                throw new ServiceBusinessException("Este livro já está na sua lista de desejos.");
             }
             LivroDesejado livroDesejado = livroDesejadoMapper.toEntity(request);
             LivroDesejado savedLivroDesejado = livroDesejadoRepository.save(livroDesejado);
             return livroDesejadoMapper.toResponseDto(savedLivroDesejado);
-        }catch (ServiceBusinessException e) {
+        } catch (ServiceBusinessException e) {
             throw e;
         } catch (RuntimeException e) {
-            throw new ServiceBusinessException("Erro ao salvar a Livro Desejado", e);
+            throw new ServiceBusinessException("Erro ao adicionar livro à lista de desejos", e);
         }
     }
 
