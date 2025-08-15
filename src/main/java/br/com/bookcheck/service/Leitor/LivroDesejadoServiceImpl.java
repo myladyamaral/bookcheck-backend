@@ -1,17 +1,11 @@
 package br.com.bookcheck.service.Leitor;
 
-
 import br.com.bookcheck.controller.dto.request.Leitor.LivroDesejadoRequestDto;
-import br.com.bookcheck.controller.dto.request.Livro.LivroRequestDto;
 import br.com.bookcheck.controller.dto.response.Leitor.LivroDesejadoResponseDto;
-import br.com.bookcheck.domain.entity.Leitor.Biblioteca;
-import br.com.bookcheck.domain.entity.Livro.Livro;
 import br.com.bookcheck.domain.entity.Leitor.LivroDesejado;
 import br.com.bookcheck.domain.repository.LivroDesejadoRepository;
-import br.com.bookcheck.domain.repository.LivroRepository;
 import br.com.bookcheck.exception.ServiceBusinessException;
 import br.com.bookcheck.mapper.Leitor.LivroDesejadoMapper;
-import br.com.bookcheck.service.OpenLibraryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 @Slf4j
@@ -33,15 +26,16 @@ public class LivroDesejadoServiceImpl implements LivroDesejadoService {
     @Override
     public LivroDesejadoResponseDto createLivroDesejado(LivroDesejadoRequestDto request) {
         try {
-            // Valida se o livro já não está na lista de desejos usando o workId
             Optional<LivroDesejado> optionalLivroDesejado = livroDesejadoRepository.findByLeitorIdAndWorkId(request.getLeitorId(), request.getWorkId());
 
             if(optionalLivroDesejado.isPresent()) {
                 throw new ServiceBusinessException("Este livro já está na sua lista de desejos.");
             }
+
             LivroDesejado livroDesejado = livroDesejadoMapper.toEntity(request);
             LivroDesejado savedLivroDesejado = livroDesejadoRepository.save(livroDesejado);
             return livroDesejadoMapper.toResponseDto(savedLivroDesejado);
+
         } catch (ServiceBusinessException e) {
             throw e;
         } catch (RuntimeException e) {
@@ -52,7 +46,7 @@ public class LivroDesejadoServiceImpl implements LivroDesejadoService {
     @Override
     public LivroDesejadoResponseDto getLivroDesejadoById(Long id) {
         LivroDesejado livroDesejado = livroDesejadoRepository.findById(id)
-                .orElseThrow(() -> new ServiceBusinessException("Livro Desejado não encontrada."));
+                .orElseThrow(() -> new ServiceBusinessException("Item da lista de desejos não encontrado."));
         return livroDesejadoMapper.toResponseDto(livroDesejado);
     }
 
@@ -71,4 +65,3 @@ public class LivroDesejadoServiceImpl implements LivroDesejadoService {
         livroDesejadoRepository.deleteById(id);
     }
 }
-
