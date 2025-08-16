@@ -84,7 +84,6 @@ security:
       - /api/auth/login
       - /api/usuario/leitor
       - /api/usuario/sebo
-      - /api/chat/conversations
 
 logging:
   level:

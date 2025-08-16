@@ -2,6 +2,7 @@ package br.com.bookcheck.controller;
 
 import br.com.bookcheck.controller.dto.ConversaDTO;
 import br.com.bookcheck.controller.dto.MensagemDTO;
+import br.com.bookcheck.controller.dto.request.Usuario.EnviarMensagemRequestDto;
 import br.com.bookcheck.service.Chat.ChatService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,7 @@ public class ChatController {
     }
 
     @PostMapping("/enviar")
-    public MensagemDTO enviarMensagem(@RequestBody EnviarMensagemRequest request) {
+    public MensagemDTO enviarMensagem(@RequestBody EnviarMensagemRequestDto request) {
         return chatService.enviarMensagem(request.getRemetenteId(), request.getDestinatarioId(), request.getConteudo());
-    }
-
-    @Data
-    public static class EnviarMensagemRequest {
-        private Long remetenteId;
-        private Long destinatarioId;
-        private String conteudo;
     }
 }

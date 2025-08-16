@@ -7,6 +7,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "mensagem")
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @Builder
@@ -28,7 +29,7 @@ public class Mensagem {
     @Column(nullable = false, length = 1000)
     private String conteudo;
 
-    @Column(nullable = false)
+    @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataEnvio;
 
     @Column(nullable = false)

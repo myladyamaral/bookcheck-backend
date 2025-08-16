@@ -3,14 +3,17 @@ package br.com.bookcheck.service.Chat;
 import br.com.bookcheck.controller.dto.ConversaDTO;
 import br.com.bookcheck.controller.dto.MensagemDTO;
 import br.com.bookcheck.controller.dto.UserSummaryDTO;
+import br.com.bookcheck.domain.entity.Chat.Conversa;
 import br.com.bookcheck.domain.entity.Chat.Mensagem;
 import br.com.bookcheck.domain.entity.Usuario.Usuario;
+import br.com.bookcheck.domain.repository.ConversaRepository;
 import br.com.bookcheck.domain.repository.MensagemRepository;
 import br.com.bookcheck.domain.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,10 +24,10 @@ public class ChatService {
 
     private final MensagemRepository mensagemRepository;
     private final UsuarioRepository usuarioRepository;
+    private final ConversaRepository conversaRepository; // Repositório adicionado
 
     private final DateTimeFormatter isoFormat = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-    // Lista conversas de um usuário
     @Transactional(readOnly = true)
     public List<ConversaDTO> listarConversas(Long usuarioId) {
         List<Mensagem> msgs = mensagemRepository.findByRemetenteIdOrDestinatarioId(usuarioId, usuarioId);
@@ -41,7 +44,8 @@ public class ChatService {
             convMsgs.sort(Comparator.comparing(Mensagem::getDataEnvio));
 
             Mensagem last = convMsgs.get(convMsgs.size() - 1);
-            Usuario other = last.getRemetente().getId().equals(usuarioId) ? last.getRemetente() : last.getDestinatario();
+            // Corrigido para pegar o usuário correto
+            Usuario other = last.getRemetente().getId().equals(usuarioId) ? last.getDestinatario() : last.getRemetente();
             long unread = convMsgs.stream().filter(m -> !m.isLida() && !m.getRemetente().getId().equals(usuarioId)).count();
 
             conversas.add(ConversaDTO.builder()
@@ -57,7 +61,6 @@ public class ChatService {
                     .build());
         }
 
-        // Ordena pelo último envio
         conversas.sort((a, b) -> {
             if (a.getLastMessage() == null) return 1;
             if (b.getLastMessage() == null) return -1;
@@ -67,7 +70,6 @@ public class ChatService {
         return conversas;
     }
 
-    // Lista histórico 1-1
     @Transactional(readOnly = true)
     public List<MensagemDTO> listarMensagens(Long usuarioId, Long otherUserId) {
         List<Mensagem> msgs = mensagemRepository.find1v1(usuarioId, otherUserId);
@@ -75,18 +77,31 @@ public class ChatService {
         return msgs.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    // Enviar mensagem
     @Transactional
     public MensagemDTO enviarMensagem(Long remetenteId, Long destinatarioId, String conteudo) {
-        Usuario remetente = usuarioRepository.findById(remetenteId).orElseThrow();
-        Usuario destinatario = usuarioRepository.findById(destinatarioId).orElseThrow();
+        Usuario remetente = usuarioRepository.findById(remetenteId)
+                .orElseThrow(() -> new RuntimeException("Remetente não encontrado"));
+        Usuario destinatario = usuarioRepository.findById(destinatarioId)
+                .orElseThrow(() -> new RuntimeException("Destinatário não encontrado"));
+
+        // Lógica para encontrar ou criar uma conversa
+        Conversa conversa = conversaRepository.findConversaByParticipantes(remetenteId, destinatarioId)
+                .orElseGet(() -> {
+                    Conversa novaConversa = new Conversa();
+                    novaConversa.setParticipantes(Arrays.asList(remetente, destinatario));
+                    novaConversa.setUltimaAtualizacao(LocalDateTime.now());
+                    return conversaRepository.save(novaConversa);
+                });
+
+        conversa.setUltimaAtualizacao(LocalDateTime.now());
 
         Mensagem msg = Mensagem.builder()
                 .remetente(remetente)
                 .destinatario(destinatario)
                 .conteudo(conteudo)
-                .dataEnvio(java.time.LocalDateTime.now())
+                .dataEnvio(LocalDateTime.now())
                 .lida(false)
+                .conversa(conversa) // Associa a mensagem à conversa
                 .build();
 
         mensagemRepository.save(msg);
